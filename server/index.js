@@ -21,6 +21,20 @@ const app = fastify({
   trustProxy: __PROD__,
 });
 
+app.get('/ping', (request, reply) => {
+  reply.send({ reply: 'pong' });
+});
+
+// API for get dynamic content in footer
+app.get('/api/footer', (request, reply) => {
+  reply.send({ reply: 'pong' });
+});
+
+// API for get product list
+app.get('/api/products', (request, reply) => {
+  reply.send({ reply: 'pong' });
+});
+
 app.setErrorHandler(handleError);
 
 app.register(serverTiming);
@@ -34,9 +48,7 @@ app.register(require('fastify-static'), {
   wildcard: false,
 });
 
-app
-  .register(cors, corsOptions)
-  .register(renderer, { ssr: config.get('SSR_STATUS') });
+app.register(cors, corsOptions).register(renderer, { ssr: config.get('SSR_STATUS') });
 
 (async () => {
   try {
