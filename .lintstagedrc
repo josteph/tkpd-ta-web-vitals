@@ -1,0 +1,11 @@
+{
+  "*.js": [
+    "prettier --config .prettierrc --write",
+    "eslint --ignore-pattern '!.*.js'",
+    "git add"
+  ],
+  "*.{json,md,yml}": [
+    "prettier --config .prettierrc --write",
+    "git add"
+  ]
+}

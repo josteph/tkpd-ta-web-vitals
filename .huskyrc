@@ -1,0 +1,7 @@
+{
+  "hooks": {
+    "post-merge": "sh ./scripts/git/post-merge.sh",
+    "pre-commit": "sh ./scripts/git/pre-commit.sh",
+    "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+  }
+}

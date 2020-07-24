@@ -1,0 +1,23 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+/api
+
+# misc
+.babelCache
+.DS_Store
+.DS_STORE
+.env
+!.env.example
+
+# package manager logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
