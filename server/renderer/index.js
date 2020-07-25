@@ -6,17 +6,31 @@ import { HelmetProvider } from 'react-helmet-async';
 import { ChunkExtractor } from '@loadable/server';
 import ContextProvider from '@context';
 import Routes from '@route-gateway';
+
+import { DataProvider, createDataClient } from 'react-isomorphic-data';
+import { getDataFromTree } from 'react-isomorphic-data/ssr';
+import fetch from 'node-fetch';
+
 import { getHeader, getFooter } from './html-template';
 
 const debug = require('debug')('app:render');
 
 const statsFile = path.resolve(__dirname, '../build/loadable-stats.json');
 
+// react-isomorphic-data needs fetch to be available in the global scope
+global.fetch = fetch;
+
 const renderer = async (fastify, opts, next) => {
   const glb = global;
 
   fastify.get('/*', async (request, reply) => {
     glb.webpSupport = false;
+
+    const dataClient = createDataClient({
+      initialCache: {},
+      ssr: true,
+      headers: {},
+    });
 
     const httpRequest = request.raw;
     const reqHeaders = request?.headers || {};
@@ -54,14 +68,22 @@ const renderer = async (fastify, opts, next) => {
         const routerContext = {};
 
         const App = chunkExtractor.collectChunks(
-          <HelmetProvider context={helmetContext}>
-            <StaticRouter location={httpRequest.url} context={routerContext}>
-              <ContextProvider initialState={initialState}>
-                <Routes />
-              </ContextProvider>
-            </StaticRouter>
-          </HelmetProvider>,
+          <DataProvider client={dataClient}>
+            <HelmetProvider context={helmetContext}>
+              <StaticRouter location={httpRequest.url} context={routerContext}>
+                <ContextProvider initialState={initialState}>
+                  <Routes />
+                </ContextProvider>
+              </StaticRouter>
+            </HelmetProvider>
+          </DataProvider>,
         );
+
+        try {
+          await getDataFromTree(App);
+        } catch (err) {
+          console.error('Error while trying to getDataFromTree', err);
+        }
 
         try {
           const appBodyString = renderToString(App);
@@ -71,6 +93,7 @@ const renderer = async (fastify, opts, next) => {
             helmet: helmetContext.helmet,
             ssr: opts.ssr,
             chunkExtractor,
+            dataClient,
           };
 
           glb.navigator = {

@@ -8,6 +8,8 @@ import handleError from './middleware/handle-error';
 import serverTiming from './middleware/server-timing';
 import corsOptions from './options/cors';
 import renderer from './renderer';
+import footerData from './data/footer';
+import productsData from './data/products';
 
 const debug = require('debug')('app');
 
@@ -34,9 +36,30 @@ app.register(require('fastify-static'), {
   wildcard: false,
 });
 
-app
-  .register(cors, corsOptions)
-  .register(renderer, { ssr: config.get('SSR_STATUS') });
+app.get('/ping', (request, reply) => {
+  reply.type('application/json').code(200);
+  reply.send({ reply: 'pong' });
+});
+
+// API for get dynamic content in footer
+app.get('/api/footer', (request, reply) => {
+  reply.type('application/json').code(200);
+  reply.send({
+    success: true,
+    data: footerData,
+  });
+});
+
+// API for get product list
+app.get('/api/products', (request, reply) => {
+  reply.type('application/json').code(200);
+  reply.send({
+    success: true,
+    data: productsData,
+  });
+});
+
+app.register(cors, corsOptions).register(renderer, { ssr: config.get('SSR_STATUS') });
 
 (async () => {
   try {

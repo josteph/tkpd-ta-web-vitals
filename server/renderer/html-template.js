@@ -47,12 +47,13 @@ export const getHeader = ({
       <div id="root">`;
 };
 
-export const getFooter = ({ chunkExtractor, initialState = {}, ssr = false }) => {
+export const getFooter = ({ chunkExtractor, initialState = {}, ssr = false, dataClient = {} }) => {
   return `</div>
       <script type="text/javascript">
         window.__INITIAL_STATE__=${serialize(initialState)};
         window.ssr=${ssr};
         window.ENV="${config.get('ENV')}";
+        window.__cache=${JSON.stringify(dataClient?.cache)};
       </script>
       ${chunkExtractor?.getScriptTags({ crossorigin: 'anonymous' })?.replace(/\<script async/g, '<script defer') ||
         preloadedMainScripts(createScriptTag)}
