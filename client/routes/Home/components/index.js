@@ -1,9 +1,9 @@
 import React from 'react';
 import { useData } from 'react-isomorphic-data';
 
-import Header from '@components/Header';
-import RatingReview from '@components/RatingReview';
-import Footer from '@components/Footer';
+import Header from '../../../components/Header';
+import RatingReview from '../../../components/RatingReview';
+import Footer from '../../../components/Footer';
 
 const productWrapper = {
   display: 'flex',

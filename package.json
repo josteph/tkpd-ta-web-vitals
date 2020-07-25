@@ -118,7 +118,6 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "better-npm-run": "^0.1.1",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
-    "commitizen": "^4.0.3",
     "copy-webpack-plugin": "^5.1.1",
     "cz-conventional-changelog": "^3.0.2",
     "eslint-config-react-app": "^5.0.2",
@@ -131,8 +130,6 @@
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^2.1.2",
     "eslint-plugin-testing-library": "^2.2.3",
-    "husky": "^3.0.5",
-    "lint-staged": "^9.2.1",
     "node-sass": "^4.12.0",
     "prettier": "^1.18.2",
     "thread-loader": "^2.1.2",
@@ -149,8 +146,7 @@
     "build-staging": "env-cmd -e staging bnr build:client && env-cmd -e staging bnr build:server",
     "build:client": "bnr build:client",
     "build:server": "bnr build:server",
-    "setup": "sh ./install.sh setup",
-    "client:test": "jest"
+    "setup": "cp .env.example .env && yarn"
   },
   "betterScripts": {
     "deploy": {
@@ -215,10 +211,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }

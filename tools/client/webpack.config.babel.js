@@ -458,8 +458,6 @@ module.exports = function() {
         __DEV__: isEnvDevelopment,
         __TEST__: false,
         __PROD__: isEnvProduction,
-        __CLIENT__: true,
-        __SERVER__: false,
       }),
       // This is necessary to emit hot updates (currently CSS only):
       isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),

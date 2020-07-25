@@ -4,7 +4,6 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ChunkExtractor } from '@loadable/server';
-import ContextProvider from '@context';
 import Routes from '@route-gateway';
 
 import { DataProvider, createDataClient } from 'react-isomorphic-data';
@@ -13,19 +12,13 @@ import fetch from 'node-fetch';
 
 import { getHeader, getFooter } from './html-template';
 
-const debug = require('debug')('app:render');
-
 const statsFile = path.resolve(__dirname, '../build/loadable-stats.json');
 
 // react-isomorphic-data needs fetch to be available in the global scope
 global.fetch = fetch;
 
 const renderer = async (fastify, opts, next) => {
-  const glb = global;
-
   fastify.get('/*', async (request, reply) => {
-    glb.webpSupport = false;
-
     const dataClient = createDataClient({
       initialCache: {},
       ssr: true,
@@ -33,16 +26,10 @@ const renderer = async (fastify, opts, next) => {
     });
 
     const httpRequest = request.raw;
-    const reqHeaders = request?.headers || {};
 
     console.log(`Running SSR on ${httpRequest.url}`);
 
-    const initialState = {};
-
-    let htmlStates = {
-      initialState,
-      xdevice: reqHeaders['x-device'] || false,
-    };
+    let htmlStates = {};
 
     const hydrateOnClient = (status = 200) => {
       reply
@@ -50,14 +37,6 @@ const renderer = async (fastify, opts, next) => {
         .type('text/html; charset=utf-8')
         .send(`${getHeader(htmlStates)}${getFooter(htmlStates)}`);
     };
-
-    if (!opts.ssr) {
-      debug('SSR are disabled, hydrating on client.');
-
-      hydrateOnClient();
-
-      return;
-    }
 
     const chunkExtractor = new ChunkExtractor({ statsFile, entrypoints: ['client'] });
 
@@ -71,9 +50,7 @@ const renderer = async (fastify, opts, next) => {
           <DataProvider client={dataClient}>
             <HelmetProvider context={helmetContext}>
               <StaticRouter location={httpRequest.url} context={routerContext}>
-                <ContextProvider initialState={initialState}>
-                  <Routes />
-                </ContextProvider>
+                <Routes />
               </StaticRouter>
             </HelmetProvider>
           </DataProvider>,
@@ -91,14 +68,9 @@ const renderer = async (fastify, opts, next) => {
           htmlStates = {
             ...htmlStates,
             helmet: helmetContext.helmet,
-            ssr: opts.ssr,
+            ssr: true,
             chunkExtractor,
             dataClient,
-          };
-
-          glb.navigator = {
-            userAgent: reqHeaders['user-agent'] || '',
-            referer: reqHeaders.referer || '',
           };
 
           return `${getHeader(htmlStates)}${appBodyString}${getFooter(htmlStates)}`;

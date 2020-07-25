@@ -9,7 +9,7 @@ import WebpackBar from 'webpackbar';
 import nodeExternals from 'webpack-node-externals';
 import config from '../../config';
 
-import { isCircleCI, isDev, isProd, ifDev, ifProd } from '../../utils';
+import { isDev, isProd } from '../../utils';
 
 const log = debug(`build:app`);
 
@@ -27,7 +27,7 @@ log(`> Building Server App, entry: ${entryPath}, output: ${path.join(buildPath, 
 const alias = require(`${rootDir}/client/resolver`)({ rootDir });
 
 const developmentPlugins = () => {
-  if (isDev && !isCircleCI) {
+  if (isDev) {
     // need to lazy load this plugin
     const StartServerPlugin = require('start-server-webpack-plugin');
 
@@ -38,66 +38,30 @@ const developmentPlugins = () => {
 };
 
 const webpackConfig = {
-  /**
-   * Output target to NodeJS
-   */
   target: 'node',
-
-  /**
-   * Fail out if there is a single error in production mode
-   */
   bail: isProd,
-
-  /**
-   * The base directory
-   * for resolving entry point
-   */
   context: path.resolve(rootDir, 'server'),
-
-  /**
-   * Define mode to let webpack
-   * determine what plugin should be activated
-   */
-  mode: ifProd('production', 'development'),
-
-  /**
-   * Source map setting
-   */
-  devtool: ifProd('(none)', 'source-map'),
-
-  /**
-   * Define perfomance hints for assets
-   * and entrypoints that exceed file limit
-   */
+  mode: isProd ? 'production' : 'development',
+  devtool: isProd ? '(none)' : 'source-map',
   performance: false,
-
   stats: 'errors-only',
-
-  /**
-   * Entry files
-   */
   entry: {
     index: [
       '@babel/polyfill',
       'make-promises-safe',
       'regenerator-runtime/runtime',
       'node-fetch',
-      ifDev('webpack/hot/poll?1000'),
+      isDev && 'webpack/hot/poll?1000',
       path.resolve(rootDir, entryPath),
     ].filter(Boolean),
   },
 
-  /** Need this to support recompile with HMR */
-  watch: isDev && !isCircleCI,
+  watch: isDev,
 
-  /**
-   * Output config
-   * Buildpath and output name
-   */
   output: {
     path: path.resolve(rootDir, buildPath),
     filename: '[name].js',
-    chunkFilename: ifDev('chunk.[name].js', 'chunk.[name].[chunkhash:8].js'),
+    chunkFilename: isDev ? 'chunk.[name].js' : 'chunk.[name].[chunkhash:8].js',
     publicPath,
     libraryTarget: 'commonjs2',
   },
@@ -111,7 +75,6 @@ const webpackConfig = {
   },
 
   module: {
-    // Makes missing export becomes compile error
     strictExportPresence: true,
     noParse: /lodash/,
     rules: [
@@ -157,7 +120,7 @@ const webpackConfig = {
                   },
                 ],
                 'lodash',
-                ifDev('console'),
+                isDev && 'console',
               ].filter(Boolean),
               env: {
                 production: {
@@ -188,7 +151,7 @@ const webpackConfig = {
                 loader: 'file-loader',
                 options: {
                   limit: 10000,
-                  name: ifDev('static/media/[name].[ext]', 'static/media/[name].[hash:8].[ext]'),
+                  name: isDev ? 'static/media/[name].[ext]' : 'static/media/[name].[hash:8].[ext]',
                   publicPath,
                   emitFile: false,
                 },
@@ -208,7 +171,7 @@ const webpackConfig = {
                 loader: 'file-loader',
                 options: {
                   limit: 1024,
-                  name: ifDev('[name].[ext]', '[hash:8].[ext]'),
+                  name: isDev ? '[name].[ext]' : '[hash:8].[ext]',
                   publicPath,
                   emitFile: false,
                 },
@@ -253,13 +216,10 @@ const webpackConfig = {
 
   externals: [
     /^\.\/assets\.json$/,
-    /**
-     * Ignore node_modules being bundled
-     * on server build
-     */
+
     nodeExternals({
       whitelist: [
-        ...ifDev(['webpack/hot/poll?1000'], []),
+        ...(isDev ? ['webpack/hot/poll?1000'] : []),
         'source-map-support/register',
         /\.(svg|png|jpg|jpeg|gif|ico)$/,
         /\.(css|scss|sass|sss|less)$/,
@@ -272,47 +232,25 @@ const webpackConfig = {
   },
 
   plugins: [
-    /**
-     * Development webpack plugin
-     * Won't be enabled in production
-     */
     ...developmentPlugins(),
 
-    /**
-     * Define environment variable from process.env
-     */
     new webpack.EnvironmentPlugin({
       // use 'development' unless process.env.NODE_ENV is defined
       NODE_ENV: 'development',
     }),
 
-    /**
-     * Define variable on build time
-     */
     new webpack.DefinePlugin({
-      __CLIENT__: false,
       __DEV__: isDev,
       __PROD__: isProd,
-      __BUILDVER__: Math.floor(Math.random() * 1e16),
-      __SERVER__: true,
     }),
 
-    /**
-     * Elegant ProgressBar and Profiler
-     */
     new WebpackBar({
       name: 'Server',
       color: '#83cd29',
     }),
 
-    /**
-     * Error formatter
-     */
     new FriendlyErrorsWebpackPlugin(),
 
-    /**
-     * Enable source map on server
-     */
     new webpack.BannerPlugin({
       banner: 'require("source-map-support").install({ environment: "node" });',
       raw: true,

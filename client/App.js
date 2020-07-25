@@ -1,12 +1,10 @@
 import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Routes from '@route-gateway';
 import { DataProvider, createDataClient } from 'react-isomorphic-data';
-
-import ContextProvider from '@context';
-import ErrorBoundary from '@components/ErrorBoundary';
-import ErrorView from '@components/ErrorView';
+import ErrorBoundary from './components/ErrorBoundary';
+import ErrorView from './components/ErrorView';
+import Routes from './routes';
 
 const dataClient = createDataClient({
   initialCache: window.__cache || {},
@@ -19,9 +17,7 @@ function App() {
       <DataProvider client={dataClient}>
         <HelmetProvider>
           <Router>
-            <ContextProvider>
-              <Routes />
-            </ContextProvider>
+            <Routes />
           </Router>
         </HelmetProvider>
       </DataProvider>

@@ -1,26 +1,9 @@
-/**
- * This file resolves the entry assets available from our client bundle.
- */
-
 import fs from 'fs';
 import path from 'path';
 import appRootDir from 'app-root-dir';
 
 let resultCache;
 
-/**
- * Retrieves the js/css for the named chunks that belong to our client bundle.
- *
- * Note: the order of the chunk names is important. The same ordering will be
- * used when rendering the scripts.
- *
- * This is useful to us for a couple of reasons:
- *   - It allows us to target the assets for a specific chunk, thereby only
- *     loading the assets we know we will need for a specific request.
- *   - The assets are hashed, and therefore they can't be "manually" added
- *     to the render logic.  Having this method allows us to easily fetch
- *     the respective assets simply by using a chunk name. :)
- */
 export default function getClientAssets() {
   const baseDir = `./build`;
 

@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { object } from 'prop-types';
-import Layout from '@components/Layout';
-
-import HomeComponent from '@routes/Home';
+import Layout from '../components/Layout';
+import HomeComponent from './Home';
 
 const Routes = ({ history, location, match }) => {
   const routeProps = { history, location, match };

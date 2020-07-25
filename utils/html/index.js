@@ -4,7 +4,6 @@ import createPreloadTag from './create-preload-tag';
 import createScriptTag from './create-script-tag';
 import { criticalCSS, normalizeCSS } from './critical-css';
 import preconnectTags from './preconnect-tags';
-import sanitize from './sanitize';
 
 export {
   createLinkTag,
@@ -14,7 +13,6 @@ export {
   criticalCSS,
   normalizeCSS,
   preconnectTags,
-  sanitize,
 };
 
 export default {
@@ -25,5 +23,4 @@ export default {
   criticalCSS,
   normalizeCSS,
   preconnectTags,
-  sanitize,
 };
