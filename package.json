@@ -143,7 +143,6 @@
     "dev:server": "env-cmd -e development bnr dev:server",
     "build": "bnr deploy",
     "build:static": "bnr deploy:static",
-    "build-staging": "env-cmd -e staging bnr build:client && env-cmd -e staging bnr build:server",
     "build:client": "bnr build:client",
     "build:server": "bnr build:server",
     "setup": "cp .env.example .env && yarn"

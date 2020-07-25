@@ -1,11 +1,9 @@
-import config from '@config';
-
 import app from './index';
 
 const debug = require('debug')('app');
 
 let currentApp = app;
-const HOST = config.get('HOST');
+const HOST = process.env.HOST;
 const PORT = process.env.PORT || 3000;
 
 const startDevServer = () => {
@@ -20,11 +18,6 @@ const startDevServer = () => {
 };
 
 startDevServer();
-
-// Circle CI Build Success
-if (process.env.CIRCLECI || process.env.CIRCLE_CI) {
-  process.exit(0);
-}
 
 if (module.hot) {
   module.hot.accept('./index', () => {

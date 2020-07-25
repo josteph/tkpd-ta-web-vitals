@@ -18,8 +18,6 @@ yarn setup
 | `dev:client`     | To start develop the app client, integrated with hot reload.    |
 | `dev:server`     | To start develop the SSR, integrated with hot reload.           |
 | `build`          | To build and minify the app. App will use `prod` API.           |
-| `build-staging`  | To build and minify the app. App will use `staging` API.        |
 | `build:static`   | Build client side only for static deployment purpose.           |
-| `client:test`    | To test the app client with testing library react.              |
 
 ---

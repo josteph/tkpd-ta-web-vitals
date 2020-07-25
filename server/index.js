@@ -23,7 +23,7 @@ app.setErrorHandler(handleError);
 
 app.register(serverTiming);
 
-if (process.env.NODE_ENV === 'production') {
+if (__PROD__) {
   app.register(require('fastify-helmet'));
 }
 
