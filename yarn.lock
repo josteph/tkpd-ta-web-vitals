@@ -10213,6 +10213,11 @@ react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
 
+react-isomorphic-data@^0.17.1:
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/react-isomorphic-data/-/react-isomorphic-data-0.17.1.tgz#c923baf150885aa0f8010307eccd45203e65ea1f"
+  integrity sha512-aJkn2r1sTzbPpjbijoMhDvNvPwUZd/Na6jc/f5LqWg2g+SMKS6t2uDFbvDzNhT/EF3+OKVRQay7+ACEemxnOFw==
+
 react-router-dom@5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-5.1.2.tgz#06701b834352f44d37fbb6311f870f84c76b9c18"

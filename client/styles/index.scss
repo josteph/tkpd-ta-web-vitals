@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  color: white;
+  background-color: #000;
 }
 
 code {
@@ -14,6 +17,8 @@ code {
 
 .App {
   text-align: center;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
 }
 
 .App-logo {

@@ -23,26 +23,6 @@ const app = fastify({
   trustProxy: __PROD__,
 });
 
-app.get('/ping', (request, reply) => {
-  reply.send({ reply: 'pong' });
-});
-
-// API for get dynamic content in footer
-app.get('/api/footer', (request, reply) => {
-  reply.send({
-    success: true,
-    data: footerData,
-  });
-});
-
-// API for get product list
-app.get('/api/products', (request, reply) => {
-  reply.send({
-    success: true,
-    data: productsData,
-  });
-});
-
 app.setErrorHandler(handleError);
 
 app.register(serverTiming);
@@ -54,6 +34,29 @@ if (isProd) {
 app.register(require('fastify-static'), {
   root: path.resolve(appRootDir.get(), 'build'),
   wildcard: false,
+});
+
+app.get('/ping', (request, reply) => {
+  reply.type('application/json').code(200);
+  reply.send({ reply: 'pong' });
+});
+
+// API for get dynamic content in footer
+app.get('/api/footer', (request, reply) => {
+  reply.type('application/json').code(200);
+  reply.send({
+    success: true,
+    data: footerData,
+  });
+});
+
+// API for get product list
+app.get('/api/products', (request, reply) => {
+  reply.type('application/json').code(200);
+  reply.send({
+    success: true,
+    data: productsData,
+  });
 });
 
 app.register(cors, corsOptions).register(renderer, { ssr: config.get('SSR_STATUS') });
