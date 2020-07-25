@@ -17,7 +17,7 @@ if ('function' === typeof importScripts) {
 
     /* custom cache rules */
     workbox.routing.registerNavigationRoute('/index.html', {
-      blacklist: [/^\/_/, /\/[^\/]+\.[^\/]+$/],
+      blacklist: [/^\/_/, /\/[^\/]+\.[^\/]+$/, new RegExp("\\/api\\/?")],
     });
 
     // Cache the Google Fonts stylesheets with a stale-while-revalidate strategy.

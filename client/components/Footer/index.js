@@ -5,8 +5,10 @@ const footerWrapper = {
   padding: '2em',
 };
 
+const { API_URL } = process.env;
+
 const Footer = () => {
-  const { data, loading } = useData('http://localhost:3000/api/footer', {});
+  const { data, loading } = useData(`${API_URL}/footer`, {});
 
   return (
     <div className="footer">

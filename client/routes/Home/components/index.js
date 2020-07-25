@@ -42,8 +42,10 @@ const productPrice = {
   color: '#ff5722',
 };
 
+const { API_URL } = process.env;
+
 function Home() {
-  const { data, loading } = useData('http://localhost:3000/api/products', {});
+  const { data, loading } = useData(`${API_URL}/products`, {});
   console.log(data);
 
   return (
