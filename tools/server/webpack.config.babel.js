@@ -185,11 +185,12 @@ const webpackConfig = {
             test: /\.(png|jpe?g|gif|svg|bmp)$/,
             use: [
               {
-                loader: 'url-loader',
+                loader: 'file-loader',
                 options: {
                   limit: 10000,
-                  publicPath,
                   name: ifDev('static/media/[name].[ext]', 'static/media/[name].[hash:8].[ext]'),
+                  publicPath,
+                  emitFile: false,
                 },
               },
             ],
