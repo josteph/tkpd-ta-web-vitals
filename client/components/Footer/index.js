@@ -8,7 +8,7 @@ const footerWrapper = {
 const { API_URL } = process.env;
 
 const Footer = () => {
-  const { data, loading } = useData(`${API_URL}/footer`, {});
+  const { data, loading } = useData(`${API_URL}/footer`, {}, { method: 'GET' }, { ssr: false });
 
   return (
     <div className="footer">

@@ -76,7 +76,7 @@ const { API_URL } = process.env;
 
 function PdpComponent({ match }) {
   const id = match.params.id;
-  const { data, loading } = useData(`${API_URL}/product/${id}`, {});
+  const { data, loading } = useData(`${API_URL}/product/${id}`, {}, { method: 'GET' }, { ssr: false });
 
   return (
     <div className="App" data-testid="pdp-container">
