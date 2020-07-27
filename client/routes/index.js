@@ -2,7 +2,9 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { object } from 'prop-types';
 import Layout from '../components/Layout';
+
 import HomeComponent from './Home';
+import PDPComponent from './PDP';
 
 const Routes = ({ history, location, match }) => {
   const routeProps = { history, location, match };
@@ -10,7 +12,8 @@ const Routes = ({ history, location, match }) => {
   return (
     <Layout {...routeProps}>
       <Switch>
-        <Route path="/" component={HomeComponent} {...routeProps} />
+        <Route path="/:id" component={PDPComponent} {...routeProps} />
+        <Route exact path="/" component={HomeComponent} {...routeProps} />
       </Switch>
     </Layout>
   );

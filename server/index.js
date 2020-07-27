@@ -7,6 +7,7 @@ import serverTiming from './middleware/server-timing';
 import renderer from './renderer';
 import footerData from './data/footer';
 import productsData from './data/products';
+import productData from './data/product';
 
 const debug = require('debug')('app');
 
@@ -53,6 +54,13 @@ app.get('/api/products', (request, reply) => {
     success: true,
     data: productsData,
   });
+});
+
+// API for get product detail
+app.get('/api/product/:id', (request, reply) => {
+	reply.type('application/json').code(200);
+	const id = request.params.id;
+  reply.send(productData(id));
 });
 
 app.register(cors).register(renderer);

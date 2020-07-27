@@ -35,7 +35,10 @@ export const getHeader = ({
       <meta name="apple-mobile-web-app-title" content="React App" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
 
-      <style type="text/css">${normalizeCSS}</style>
+			<style type="text/css">${normalizeCSS}</style>
+			<style>
+				:focus{outline:0}html{box-sizing:border-box;font-size:14px;}*,::after,::before{box-sizing:inherit}a{color:rgba(0,0,0,.7);text-decoration:none}
+			</style>
       ${helmet.meta.toString()}
       ${helmet.style.toString()}
       ${helmet.script.toString()}
