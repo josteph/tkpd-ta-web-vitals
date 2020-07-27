@@ -20,7 +20,7 @@ const productCard = {
   marginRight: '10px',
   marginBottom: '10px',
   boxShadow: '0 1px 6px 0 rgb(255 255 255 / 0.32)',
-	borderRadius: '0 0 8px 8px',
+  borderRadius: '8px',
 	textDecoration: 'none',
 	color: '#fff',
 	cursor: 'pointer',
