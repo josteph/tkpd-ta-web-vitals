@@ -2,7 +2,7 @@ const createProduct = (id, name, price, review, rating, imageIndex) => {
   return {
     id,
     name,
-    image: `https://github.com/josteph/tkpd-ta-web-vitals/raw/master/public/images/product-${imageIndex}.jpg`,
+    image: `http://localhost:3000/images/product-${imageIndex}.jpg`,
     price,
     review,
     rating,

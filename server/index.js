@@ -9,6 +9,7 @@ import footerData from './data/footer';
 import productsData from './data/products';
 import productData from './data/product';
 
+const fastifyStatic = require('fastify-static')
 const debug = require('debug')('app');
 
 debug('Starting...');
@@ -28,10 +29,16 @@ if (__PROD__) {
   app.register(require('fastify-helmet'));
 }
 
-app.register(require('fastify-static'), {
+app.register(fastifyStatic, {
   root: path.resolve(appRootDir.get(), 'build'),
   wildcard: false,
 });
+
+app.register(fastifyStatic, {
+  root: path.resolve(appRootDir.get(), 'public/images'),
+  prefix: '/images',
+  decorateReply: false
+})
 
 app.get('/ping', (request, reply) => {
   reply.type('application/json').code(200);
