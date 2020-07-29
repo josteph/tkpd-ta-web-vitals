@@ -32,14 +32,14 @@ const Footer = () => {
 			setShowData(data.data.content.substring(0, 500) + '...')
 		}
 		setShowAll(!showAll)
-	}
+  }
 
   return (
     <div className="footer" style={footerWrapper}>
       {!loading && data && (
 				<>
-					<div style={footerContent} dangerouslySetInnerHTML={{ __html: showData }}></div>
-					<a onClick={handleToogleShow} style={{ color: '#61dafb', textDecoration: 'none' }}>{showAll ? 'Tampilkan lebih sedikit' : 'Tampilkan selengkapya'}</a>
+					<div style={footerContent} dangerouslySetInnerHTML={{ __html: showData || data.data.content.substring(0, 500) + '...' }}></div>
+					<a onClick={handleToogleShow} style={{ color: '#61dafb', textDecoration: 'none' }}>{showAll ? 'Tampilkan lebih sedikit' : 'Tampilkan selengkapnya'}</a>
 				</>
 			)}
     </div>
