@@ -50,7 +50,7 @@ const productPrice = {
 const { API_URL } = process.env;
 
 function Home() {
-  const { data, loading } = useData(`${API_URL}/products`, {}, { method: 'GET' }, { ssr: false });
+  const { data, loading } = useData(`${API_URL}/products`, {}, { method: 'GET' }, { ssr: true });
 
   return (
     <div className="App" data-testid="home-container">

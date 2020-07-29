@@ -16,7 +16,7 @@ const { API_URL } = process.env;
 const Footer = () => {
 	const [showAll, setShowAll] = useState(false);
 	const [showData, setShowData] = useState('');
-  const { data, loading } = useData(`${API_URL}/footer`, {}, { method: 'GET' }, { ssr: false });
+  const { data, loading } = useData(`${API_URL}/footer`, {}, { method: 'GET' }, { ssr: true });
 
 	useEffect(() => {
 		if (!loading && data) {
