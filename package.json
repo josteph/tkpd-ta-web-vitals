@@ -1,5 +1,5 @@
 {
-  "name": "react-app-eject",
+  "name": "tkpd-ta-web-vitals",
   "version": "1.1.0",
   "description": "Ejected CRA with some customizations (Static Sites)",
   "author": "Joshua Stephen",
@@ -53,6 +53,7 @@
     "lodash": "^4.17.14",
     "make-promises-safe": "^5.0.0",
     "mini-css-extract-plugin": "0.5.0",
+    "moment": "^2.27.0",
     "node-fetch": "^2.6.0",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "pino": "^5.13.2",
