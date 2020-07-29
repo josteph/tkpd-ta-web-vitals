@@ -1,8 +1,11 @@
+const { API_URL } = process.env;
+const IMAGE_URL = API_URL.replace('/api', '/images');
+
 const createProduct = (id, name, price, review, rating, imageIndex) => {
   return {
     id,
     name,
-    image: `http://localhost:3000/images/product-${imageIndex}.jpg`,
+    image: `${IMAGE_URL}/product-${imageIndex}.jpg`,
     price,
     review,
     rating,
