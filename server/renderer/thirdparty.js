@@ -13,7 +13,7 @@ export const hotjarScript =  `
 `;
 
 export const disqusScript =  `
-	<div id="disqus_thread"></div>
+	<div id="disqus_thread" style="max-width: 500px;margin: 0 auto;padding: 2em;border-left: 1px solid rgb(255, 255, 255);border-right: 1px solid rgb(255, 255, 255);"></div>
 	<script>
 		/**
 		*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
