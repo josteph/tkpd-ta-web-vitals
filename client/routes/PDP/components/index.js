@@ -27,6 +27,7 @@ const productCard = {
 
 const productImg = {
   width: '100%',
+  height: '200px',
   objectFit: 'cover',
 };
 
