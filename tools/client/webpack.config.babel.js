@@ -406,6 +406,8 @@ module.exports = function() {
         color: '#61dafb',
       }),
 
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+
       new FriendlyErrorsWebpackPlugin(),
       // Generates an `index.html` or `index.client.html` file with the <script> injected.
       new HtmlWebpackPlugin(
