@@ -47,16 +47,19 @@ const Footer = () => {
     if (disqusInit.current) return;
 
     const initDisqus = () => {
-      var d = document, s = d.createElement('script'), count = d.createElement('script');
-      s.src = 'https://test-disqus-13.disqus.com/embed.js';
-      s.setAttribute('data-timestamp', +new Date());
+      let doc = document;
+      let script = doc.createElement('script'); 
+      let count = doc.createElement('script');
+
+      script.src = 'https://test-disqus-13.disqus.com/embed.js';
+      script.setAttribute('data-timestamp', +new Date());
 
       count.src = 'https://test-disqus-13.disqus.com/count.js';
       count.async = true;
       count.setAttribute('id', 'dsq-count-scr');
 
-      (d.head || d.body).appendChild(s);
-      (d.head || d.body).appendChild(count);
+      (doc.head || doc.body).appendChild(script);
+      (doc.head || doc.body).appendChild(count);
 
       disqusInit.current = true;
     };
