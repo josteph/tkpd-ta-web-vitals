@@ -2,7 +2,6 @@ import { createLinkTag, createPreloadTag, createScriptTag, preconnectTags } from
 import { isProd } from '@utils';
 import { normalizeCSS } from '@utils/html/critical-css';
 import { preloadedMainStyles, preloadedMainScripts } from './get-main-assets';
-import { hotjarScript } from './thirdparty';
 
 export const getHeader = ({
   chunkExtractor,
@@ -36,7 +35,7 @@ export const getHeader = ({
       <meta name="apple-mobile-web-app-title" content="React App" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
 
-			<style type="text/css">${normalizeCSS}</style>
+      <style type="text/css">${normalizeCSS}</style>
 			<style>
 				:focus{outline:0}html{box-sizing:border-box;font-size:14px;}*,::after,::before{box-sizing:inherit}a{color:rgba(0,0,0,.7);text-decoration:none}
 			</style>
@@ -57,7 +56,6 @@ export const getFooter = ({ chunkExtractor, initialState = {}, ssr = false, data
         window.__cache=${JSON.stringify(dataClient?.cache)};
         window.ENV="${process.env.ENV}";
 			</script>
-			${hotjarScript}
       ${chunkExtractor?.getScriptTags({ crossorigin: 'anonymous' })?.replace(/\<script async/g, '<script defer') ||
         preloadedMainScripts(createScriptTag)}
     </body>
