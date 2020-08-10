@@ -53,6 +53,13 @@ const { API_URL } = process.env;
 function Home() {
   const { data, loading } = useData(`${API_URL}/products`, {}, { method: 'GET' }, { ssr: true });
 
+	const getResizedImage = (imageUrl) => {
+		if (imageUrl) {
+			return `https://res.cloudinary.com/irfan-maulana-tkpd/image/fetch/c_fill,g_auto:face,h_200,fl_force_strip.progressive/f_webp/${encodeURIComponent(imageUrl)}`;
+		}
+		return '';
+	};
+
   return (
     <div className="App" data-testid="home-container">
       <Header />
@@ -61,7 +68,7 @@ function Home() {
           <div className="products" style={productWrapper}>
             {data.data.map(item => (
               <Link className="product" style={productCard} key={item.id} to={`/${item.id}`}>
-                <img className="product__img" style={productImg} src={item.image} alt={item.name}></img>
+                <img className="product__img" style={productImg} src={getResizedImage(item.image)} alt={item.name}></img>
                 <div style={productInfo}>
                   <div style={productName}>{item.name}</div>
                   <div style={productPrice}>{item.price}</div>
