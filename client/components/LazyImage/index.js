@@ -11,18 +11,18 @@ const optionsData = {
 const LazyImage = ({ alt, src, style, width, height }) => {
   const placeholder = `https://res.cloudinary.com/irfan-maulana-tkpd/image/fetch/c_fill,g_auto:face,h_50,fl_force_strip.progressive/f_webp/${encodeURIComponent(
     'https://res.cloudinary.com/irfan-maulana-tkpd/image/upload/v1597041453/placeholder_qzxxc6.png',
-	)}`;
+  )}`;
 
   const [showSrc, setShowSrc] = useState(placeholder);
   const [loaded, setLoaded] = useState(false);
 
   const onIntersect = () => {
-		const imgObj = new Image();
-		imgObj.onload = () => {
-			setLoaded(true);
-		}
-		imgObj.src = src;
-		setShowSrc(src);
+    const imgObj = new Image();
+    imgObj.onload = () => {
+      setLoaded(true);
+    };
+    imgObj.src = src;
+    setShowSrc(src);
   };
 
   const targetRef = useIntersect(onIntersect, optionsData, true);

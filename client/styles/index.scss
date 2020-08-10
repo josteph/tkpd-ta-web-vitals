@@ -21,11 +21,13 @@ code {
 }
 
 .img {
-	transition: filter .5s linear;
+  transition: filter .5s linear;
 }
+
 .img.img--loading {
-	filter: blur(1px);
+  filter: blur(1px);
 }
+
 .img.img--loaded {
-	filter: blur(0);
+  filter: blur(0);
 }
