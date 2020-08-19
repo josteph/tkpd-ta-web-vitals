@@ -1,4 +1,3 @@
-const { API_URL, PUBLIC_PATHL } = process.env;
 const { PUBLIC_PATH } = process.env;
 
 const createProduct = (id, name, price, review, rating, imageIndex) => {
