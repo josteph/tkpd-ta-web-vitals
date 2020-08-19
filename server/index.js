@@ -34,12 +34,6 @@ app.register(fastifyStatic, {
   wildcard: false,
 });
 
-app.register(fastifyStatic, {
-  root: path.resolve(appRootDir.get(), 'public/images'),
-  prefix: '/images',
-  decorateReply: false
-})
-
 app.get('/ping', (request, reply) => {
   reply.type('application/json').code(200);
   reply.send({ reply: 'pong' });
