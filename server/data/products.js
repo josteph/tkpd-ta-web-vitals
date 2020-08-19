@@ -1,11 +1,11 @@
-const { API_URL } = process.env;
-const IMAGE_URL = API_URL.replace('/api', '/images');
+const { API_URL, PUBLIC_PATHL } = process.env;
+const { PUBLIC_PATH } = process.env;
 
 const createProduct = (id, name, price, review, rating, imageIndex) => {
   return {
     id,
     name,
-    image: `${IMAGE_URL}/product-${imageIndex}.jpg`,
+    image: `${PUBLIC_PATH}/images/product-${imageIndex}.jpg`,
     price,
     review,
     rating,
