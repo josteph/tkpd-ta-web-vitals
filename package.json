@@ -7,7 +7,7 @@
   "license": "SEE LICENSE IN LICENSE",
   "private": true,
   "engines": {
-    "node": "10.x"
+    "node": ">=10.x"
   },
   "dependencies": {
     "@babel/polyfill": "^7.10.4",
