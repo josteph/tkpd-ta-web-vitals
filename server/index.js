@@ -9,7 +9,7 @@ import footerData from './data/footer';
 import productsData from './data/products';
 import productData from './data/product';
 
-const fastifyStatic = require('fastify-static')
+const fastifyStatic = require('fastify-static');
 const debug = require('debug')('app');
 
 debug('Starting...');
@@ -33,12 +33,6 @@ app.register(fastifyStatic, {
   root: path.resolve(appRootDir.get(), 'build'),
   wildcard: false,
 });
-
-app.register(fastifyStatic, {
-  root: path.resolve(appRootDir.get(), 'public/images'),
-  prefix: '/images',
-  decorateReply: false
-})
 
 app.get('/ping', (request, reply) => {
   reply.type('application/json').code(200);
@@ -65,8 +59,8 @@ app.get('/api/products', (request, reply) => {
 
 // API for get product detail
 app.get('/api/product/:id', (request, reply) => {
-	reply.type('application/json').code(200);
-	const id = request.params.id;
+  reply.type('application/json').code(200);
+  const id = request.params.id;
   reply.send(productData(id));
 });
 
