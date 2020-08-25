@@ -8,7 +8,7 @@ const footerWrapper = {
 };
 
 const footerContent = {
-	display: 'inline-block',
+  display: 'inline-block',
 };
 
 const disqusStyles = {
@@ -22,44 +22,41 @@ const disqusStyles = {
 const { API_URL } = process.env;
 
 const Footer = () => {
-	const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(false);
   const [showData, setShowData] = useState('');
   const disqusInit = useRef();
   const { data, loading } = useData(`${API_URL}/footer`, {}, { method: 'GET' }, { ssr: true });
 
-	useEffect(() => {
-		if (!loading && data) {
-			setShowData(data.data.content.substring(0, 500) + '...')
-		}
-	}, [data, loading]);
+  useEffect(() => {
+    if (!loading && data) {
+      setShowData(data.data.content.substring(0, 500) + '...')
+    }
+  }, [data, loading]);
 
-	const handleToogleShow = (e) => {
-		e.preventDefault();
-		if (!showAll) {
-			setShowData(data.data.content)
-		} else {
-			setShowData(data.data.content.substring(0, 500) + '...')
-		}
-		setShowAll(!showAll);
+  const handleToogleShow = (e) => {
+    e.preventDefault();
+    if (!showAll) {
+      setShowData(data.data.content)
+    } else {
+      setShowData(data.data.content.substring(0, 500) + '...')
+    }
+    setShowAll(!showAll);
   };
 
   useEffect(() => {
     if (disqusInit.current) return;
 
     const initDisqus = () => {
-      let doc = document;
-      let script = doc.createElement('script'); 
-      let count = doc.createElement('script');
-
-      script.src = 'https://test-disqus-13.disqus.com/embed.js';
-      script.setAttribute('data-timestamp', +new Date());
+      var d = document, s = d.createElement('script'), count = d.createElement('script');
+      s.src = 'https://test-disqus-13.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
 
       count.src = 'https://test-disqus-13.disqus.com/count.js';
       count.async = true;
       count.setAttribute('id', 'dsq-count-scr');
 
-      (doc.head || doc.body).appendChild(script);
-      (doc.head || doc.body).appendChild(count);
+      (d.head || d.body).appendChild(s);
+      (d.head || d.body).appendChild(count);
 
       disqusInit.current = true;
     };
@@ -83,3 +80,4 @@ const Footer = () => {
 };
 
 export default Footer;
+
